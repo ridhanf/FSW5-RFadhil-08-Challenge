@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const morgan = require('morgan');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJSON = require('./swagger.json');
 
@@ -15,6 +16,7 @@ app.use(cors(corsOptions));
 // accept request in form or JSON
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 
 // Swagger middleware
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerJSON));

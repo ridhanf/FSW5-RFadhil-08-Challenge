@@ -15,31 +15,15 @@ tags:
   - name: Players
     description: Players Resources
 schemes:
-  - https
   - http
+  - https
 paths:
   '/players':
-    get:
-      tags:
-        - Player
-      summary: List API Index
-      description: described hit
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Success
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Player'
-        '400':
-          description: Bad Request
     post:
       tags:
         - Player
-      summary: Add new Player
-      description: Create new Player
+      summary: Create new player
+      description: Create new player data
       produces:
         - application/json
       consumes:
@@ -47,119 +31,307 @@ paths:
       parameters:
         - in: body
           name: body
-          description: Player object
-          required: true
+          description: Request body of player data
           schema:
-            $ref: '#/definitions/Player'
+            type: object
+            required:
+              - username
+              - email
+              - password
+            properties:
+              username:
+                type: string
+                example: ridhanf
+              email:
+                type: string
+                example: ridhanfadhilah@gmail.com
+              password:
+                type: string
+                example: 123456
+              exp:
+                type: integer
+                example: 1000
       security:
         - Token: []
       responses:
-        '200':
-          description: Successfully create new Player
+        '201':
+          description: Successfully create new player
           schema:
-            $ref: '#/definitions/Player'
+            type: object
+            properties:
+              result:
+                type: string
+                example: "SUCCESS"
+              message:
+                $ref: '#/definitions/Player'
         '400':
-          description: Failed to create new Player
+          description: Failed to create new player
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                example: "FAILED"
+              message:
+                type: string
+                example: "Some error occurred while creating the Player."
+        '500':
+          description: Server error
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                example: "FAILED"
+              message:
+                type: string
+                example: "username or email or password field cannot be empty."
+    get:
+      tags:
+        - Player
+      summary: Read all players
+      description: Read all players data
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successfully get all players
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                example: "SUCCESS"
+              message:
+                $ref: '#/definitions/Player'
+        '500':
+          description: Server error
           schema:
             type: object
             properties:
               message:
                 type: string
-                example: Failed to create new Player
+                example: "Some error occurred while retrieving players."
   '/players/{id}':
     get:
       tags:
         - Player
-      summary: List a Player
-      description: described hit
+      summary: Read player by ID
+      description: Read player data by ID
       produces:
         - application/json
       parameters:
         - name: id
           in: path
-          description: ID of Player to return
+          description: ID of player to return
           required: true
           type: integer
           format: int64
       responses:
         '200':
-          description: Success
+          description: Successfully get player by ID
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Player'
-        '400':
-          description: Bad Request
+            type: object
+            properties:
+              result:
+                type: string
+                example: "SUCCESS"
+              message:
+                $ref: '#/definitions/Player'
+        '500':
+          description: Server error
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                example: "FAILED"
+              message:
+                type: string
+                example: "Error retrieving Player with id=1"
     put:
       tags:
         - Player
-      summary: Update a Player
-      description: described hit
+      summary: Update player by ID
+      description: Update player data by ID
       produces:
         - application/json
       parameters:
         - name: id
           in: path
-          description: ID of Player to return
+          description: ID of player to return
           required: true
           type: integer
           format: int64
+        - in: body
+          name: body
+          description: Request body of player data
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+                example: ridhanf
+              email:
+                type: string
+                example: ridhanfadhilah@gmail.com
+              password:
+                type: string
+                example: 123456
+              experience:
+                type: integer
+                example: 1000
+              lvl:
+                type: integer
+                example: 1
+      security:
+        - Token: []
       responses:
         '200':
-          description: Success
+          description: Successfully update player by ID
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Player'
+            type: object
+            properties:
+              result:
+                type: string
+                example: "SUCCESS"
+              message:
+                type: string
+                example: "Player was updated successfully."
         '400':
-          description: Bad Request
+          description: Failed to update player by ID
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                example: "FAILED"
+              message:
+                type: string
+                example: "Cannot update Player with id=1. Maybe Player was not found or req.body is empty!"
+        '500':
+          description: Server error
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                example: "FAILED"
+              message:
+                type: string
+                example: "Error updating Player with id=1"
     delete:
       tags:
         - Player
-      summary: Delete a Player
-      description: described hit
+      summary: Delete player by ID
+      description: Delete player data by ID
       produces:
         - application/json
       parameters:
         - name: id
           in: path
-          description: ID of Player to return
+          description: ID of player to return
           required: true
           type: integer
           format: int64
+      security:
+        - Token: []
       responses:
         '200':
-          description: Success
+          description: Successfully delete player by ID
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Player'
+            type: object
+            properties:
+              result:
+                type: string
+                example: "SUCCESS"
+              message:
+                type: string
+                example: "Player was deleted successfully."
         '400':
-          description: Bad Request
+          description: Failed to delete player by ID
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                example: "FAILED"
+              message:
+                type: string
+                example: "Cannot delete Player with id=1. Maybe Player was not found!"
+        '500':
+          description: Server error
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                example: "FAILED"
+              message:
+                type: string
+                example: "Could not delete Player with id=1"
   '/players/exp/{id}':
     post:
       tags:
         - Player
-      summary: Get experience
-      description: described hit
+      summary: Create new player experience by ID
+      description: Create new player experience data by ID
       produces:
         - application/json
       parameters:
         - name: id
           in: path
-          description: ID of Player to return
+          description: ID of player to return
           required: true
           type: integer
           format: int64
+        - in: body
+          name: body
+          description: Request body of player data
+          schema:
+            type: object
+            required:
+              - experience
+            properties:
+              exp:
+                type: integer
+                example: 500
+      security:
+        - Token: []
       responses:
         '200':
-          description: Success
+          description: Successfully create new player experience by ID
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Player'
+            type: object
+            properties:
+              result:
+                type: string
+                example: "SUCCESS"
+              message:
+                type: string
+                example: "Player with id=1 has more experience."
         '400':
-          description: Bad Request
+          description: Failed to create new player experience by ID because of empty value
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                example: "FAILED"
+              message:
+                type: string
+                example: "exp field cannot be empty."
+        '500':
+          description: Server error
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                example: "FAILED"
+              message:
+                type: string
+                example: "Error updating Player exp with id=1"
 securityDefinitions:
   Token:
     type: apiKey
@@ -173,15 +345,21 @@ definitions:
         type: integer
         format: int64
         example: 1
-      title:
+      username:
         type: string
-        example: Lorem Ipsum
-      body:
+        example: ridhanf
+      email:
         type: string
-        example: Lorem Ipsum Dolor Et Amet
-      approved:
-        type: boolean
-        default: false
+        example: ridhanfadhilah@gmail.com
+      password:
+        type: string
+        default: $2b$10$hkPuAZVHRaGh38gEMigwOO5iX8iF0SR4/4cr/kY5WY9OVUlNUdqpK
+      experience:
+        type: integer
+        example: 1000
+      lvl:
+        type: integer
+        example: 1
 externalDocs:
   description: Find out more about Player API
-  url: 'http://player.io'
+  url: 'https://gitlab.com/ridhanf/binar-challenge-chapter-8'

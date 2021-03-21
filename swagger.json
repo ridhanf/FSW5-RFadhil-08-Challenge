@@ -136,6 +136,32 @@
         "produces": [
           "application/json"
         ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "username",
+            "type": "string",
+            "description": "query parameter of player username"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "type": "string",
+            "description": "query parameter of player email"
+          },
+          {
+            "in": "query",
+            "name": "experience",
+            "type": "integer",
+            "description": "query parameter of player experience"
+          },
+          {
+            "in": "query",
+            "name": "lvl",
+            "type": "integer",
+            "description": "query parameter of player level"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully get all players",

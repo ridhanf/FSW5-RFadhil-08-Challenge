@@ -8,11 +8,11 @@ export default function Form(props) {
         <table>
           <thead key="thead"></thead>
           <tbody key="tbody">
-            {props.elements.map(el => {
+            {props.labels.map(el => {
               let inputType;
-              if (el === "Password") {
+              if (el === "password") {
                 inputType = "password"
-              } else if (el === "Experience" || el === "Level") {
+              } else if (el === "experience" || el === "level") {
                 inputType = "number"
               } else {
                 inputType = "text"
@@ -23,7 +23,7 @@ export default function Form(props) {
                     <label htmlFor={el}>{el.charAt(0).toUpperCase() + el.slice(1)}</label>
                   </td>
                   <td>
-                    <input type={inputType} name={el} />
+                    <input type={inputType} name={el} placeholder={el} />
                   </td>
                 </tr>
               )

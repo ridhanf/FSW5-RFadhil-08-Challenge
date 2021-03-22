@@ -1,20 +1,12 @@
 import './App.css';
+import Player from './components/Player/Player';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>App.js</h1>
+        <Player/>
       </header>
     </div>
   );

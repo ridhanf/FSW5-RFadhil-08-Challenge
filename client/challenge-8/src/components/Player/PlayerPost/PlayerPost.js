@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import './PlayerPost.css'
+import Button from '../../Button'
 
 export default class PlayerPost extends Component {
   constructor(props) {
@@ -21,11 +22,14 @@ export default class PlayerPost extends Component {
     this.setState({
       ...this.state,
       [event.target.name]: value
-  });
+    });
+    this.setState({
+      lvl: this.state.exp/100
+    })
   }
 
   handleSubmit(event) {
-    alert('username: ' + this.state.username + '\nemail: ' + this.state.email + '\npassword: ' + this.state.password + '\nexp: ' + this.state.exp);
+    alert('username: ' + this.state.username + '\nemail: ' + this.state.email + '\npassword: ' + this.state.password + '\nexp: ' + this.state.exp + '\nlvl: ' + this.state.lvl);
     event.preventDefault();
   }
   
@@ -50,7 +54,14 @@ export default class PlayerPost extends Component {
             Experience:
             <input type="number" value={this.state.exp} name="exp" onChange={this.handleChange} />
           </label><br/>
-          <input type="submit" value="Submit" />
+          <Button
+            className="btns"
+            type="submit"
+            buttonStyle="btn--outline"
+            buttonSize="btn--large"
+          >
+            Submit
+          </Button>
         </form>
       </Fragment>
     )

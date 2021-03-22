@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import './PlayerPut.css'
+import Button from '../../Button'
 
 export default class PlayerPut extends Component {
   constructor(props) {
@@ -54,7 +55,14 @@ export default class PlayerPut extends Component {
             Level:
             <input type="number" value={this.state.lvl} name="lvl" onChange={this.handleChange} />
           </label><br/>
-          <input type="submit" value="Submit" />
+          <Button
+            className="btns"
+            type="submit"
+            buttonStyle="btn--outline"
+            buttonSize="btn--large"
+          >
+            Submit
+          </Button>
         </form>
       </Fragment>
     )

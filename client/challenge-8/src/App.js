@@ -5,6 +5,7 @@ import Home from './components/pages/Home'
 import PlayerPost from './components/Player/PlayerPost/PlayerPost';
 import PlayerPut from './components/Player/PlayerPut/PlayerPut';
 import PlayerSearch from './components/Player/PlayerSearch/PlayerSearch';
+import PlayerDisplay from './components/Player/PlayerDisplay/PlayerDisplay';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path='/create' component={PlayerPost}/>
             <Route path='/update' component={PlayerPut}/>
             <Route path='/search' component={PlayerSearch}/>
+            <Route path='/display/:data' component={PlayerDisplay} />
           </Switch>
         </header>
       </Router>

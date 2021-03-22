@@ -54,11 +54,13 @@ export default class PlayerPost extends Component {
             Experience:
             <input type="number" value={this.state.exp} name="exp" onChange={this.handleChange} />
           </label><br/>
+            {/* {console.log(this.state)} */}
           <Button
             className="btns"
             type="submit"
             buttonStyle="btn--outline"
             buttonSize="btn--large"
+            data={this.state}
           >
             Submit
           </Button>

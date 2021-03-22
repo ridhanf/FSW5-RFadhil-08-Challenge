@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Button.css';
 // import { Link } from 'react-router-dom';
 
@@ -11,25 +12,34 @@ const Button = ({
   type, 
   onClick, 
   buttonStyle, 
-  buttonSize
+  buttonSize,
+  data
 }) => {
   const checkButtonStyle = STYLES.includes(buttonStyle) 
     ? buttonStyle 
     : STYLES[0];
 
-    const checkButtonSize = SIZES.includes(buttonSize)
+  const checkButtonSize = SIZES.includes(buttonSize)
     ? buttonSize
     : SIZES[0];
-
-    return (
-        <button
-          className={`btn ${checkButtonStyle} ${checkButtonSize}`}
-          onClick={onClick}
-          type={type}
-        >
-          {children}
-        </button>
-    )
+  
+  // console.log(data)
+  const path = `/display/${JSON.stringify(data)}`
+  return (
+    <Link
+      to={path}
+      params={data}
+      className="btn-mobile"
+    >
+      <button
+        className={`btn ${checkButtonStyle} ${checkButtonSize}`}
+        onClick={onClick}
+        type={type}
+      >
+        {children}
+      </button>
+    </Link>
+  )
 };
 
 export default Button;
